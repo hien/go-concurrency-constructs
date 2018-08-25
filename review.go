@@ -9,6 +9,7 @@ type Review struct {
 	Content string
 }
 
+// ParseReviews parses the HTML content
 func (review *Review) ParseReviews(raw soup.Root) error {
 	contentHolder := raw.Find("div", "class", "a-expander-content")
 

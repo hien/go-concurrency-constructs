@@ -17,6 +17,7 @@ type Product struct {
 	Reviews []Review
 }
 
+// GetReviews gets the product's top reviews from amazon product page
 func (product *Product) GetReviews() {
 	now := time.Now().UTC()
 	resp, err := soup.Get(product.Link)
