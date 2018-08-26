@@ -1,9 +1,7 @@
 package main
 
 import (
-	"fmt"
 	"os"
-	"time"
 
 	"github.com/anaskhan96/soup"
 )
@@ -19,11 +17,11 @@ type Product struct {
 
 // GetReviews gets the product's top reviews from amazon product page
 func (product *Product) GetReviews() {
-	now := time.Now().UTC()
+	// now := time.Now().UTC()
 	resp, err := soup.Get(product.Link)
-	fmt.Println("Fetching time: ", time.Since(now))
+	// fmt.Println("Fetching time: ", time.Since(now))
 
-	now = time.Now().UTC()
+	// now = time.Now().UTC()
 
 	if err != nil {
 		os.Exit(1)
@@ -50,5 +48,5 @@ func (product *Product) GetReviews() {
 	}
 
 	product.Reviews = reviews
-	fmt.Println("Review parsing time: ", time.Since(now))
+	// fmt.Println("Review parsing time: ", time.Since(now))
 }
