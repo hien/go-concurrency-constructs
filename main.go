@@ -41,5 +41,5 @@ func main() {
 		parseProduct(result)
 	}
 
-	fmt.Printf("Total time: %s for {%d} records.\n", time.Since(now), len(results))
+	fmt.Printf("{\"time\": \"%s\", \"count\": %d}\n", time.Since(now), len(results))
 }
