@@ -9,7 +9,7 @@ import (
 	"github.com/anaskhan96/soup"
 )
 
-func parseProducts(result soup.Root) Product {
+func parseProduct(result soup.Root) {
 	product := Product{}
 
 	product.Link = result.Find("a", "class", "s-access-detail-page").Attrs()["href"]
@@ -19,7 +19,7 @@ func parseProducts(result soup.Root) Product {
 
 	product.GetReviews()
 
-	return product
+	json.NewEncoder(os.Stdout).Encode(product)
 }
 
 func main() {
@@ -38,7 +38,7 @@ func main() {
 	results := doc.Find("div", "id", "mainResults").FindAll("li", "class", "s-result-item")
 
 	for _, result := range results {
-		json.NewEncoder(os.Stdout).Encode(parseProducts(result))
+		parseProduct(result)
 	}
 
 	fmt.Println("Total time: ", time.Since(now))
