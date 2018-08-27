@@ -37,9 +37,11 @@ func main() {
 	doc := soup.HTMLParse(resp)
 	results := doc.Find("div", "id", "mainResults").FindAll("li", "class", "s-result-item")
 
+	count := 0
 	for _, result := range results {
+		count++
 		parseProduct(result)
 	}
 
-	fmt.Println("Total time: ", time.Since(now))
+	fmt.Println("Total time: -", time.Since(now), "- for {", count, "} records.")
 }
