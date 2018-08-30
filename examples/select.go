@@ -38,15 +38,12 @@ func main() {
 		go randomInt(numbers)
 	}
 
-OUTER:
-	for {
-		select {
-		case msg := <-messages:
-			fmt.Println("Message: ", msg)
-		case num := <-numbers:
-			fmt.Println("Number: ", num)
-		default:
-			break OUTER
-		}
+	select {
+	case msg := <-messages:
+		fmt.Println("Message: ", msg)
+	case num := <-numbers:
+		fmt.Println("Number: ", num)
+	default:
+		fmt.Println("None")
 	}
 }
