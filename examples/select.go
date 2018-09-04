@@ -33,16 +33,16 @@ func main() {
 	messages := make(chan string)
 	numbers := make(chan int)
 
-	for i := 1; i <= 5; i++ {
+	for i := 0; i < 5; i++ {
 		go randomString(messages)
 		go randomInt(numbers)
 	}
 
 	select {
-	case msg := <-messages:
-		fmt.Println("Message: ", msg)
 	case num := <-numbers:
 		fmt.Println("Number: ", num)
+	case msg := <-messages:
+		fmt.Println("Message: ", msg)
 	default:
 		fmt.Println("None")
 	}
