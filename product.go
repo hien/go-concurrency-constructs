@@ -1,8 +1,6 @@
 package main
 
 import (
-	"os"
-
 	"github.com/anaskhan96/soup"
 )
 
@@ -24,7 +22,7 @@ func (product *Product) GetReviews() {
 	// now = time.Now().UTC()
 
 	if err != nil {
-		os.Exit(1)
+		return
 	}
 
 	doc := soup.HTMLParse(resp)

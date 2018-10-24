@@ -9,17 +9,22 @@ import (
 	"github.com/anaskhan96/soup"
 )
 
-func parseProduct(result soup.Root) {
+func parseProduct(result soup.Root, pch chan Product) {
 	product := Product{}
 
 	product.Link = result.Find("a", "class", "s-access-detail-page").Attrs()["href"]
 	product.Name = result.Find("h2", "class", "s-access-title").Text()
 	product.Image = result.Find("img", "class", "s-access-image").Attrs()["src"]
-	product.Price = result.Find("span", "class", "s-price").Text()
+
+	priceContainer := result.Find("span", "class", "s-price")
+
+	if priceContainer.Pointer != nil {
+		product.Price = priceContainer.Text()
+	}
 
 	product.GetReviews()
 
-	json.NewEncoder(os.Stdout).Encode(product)
+	pch <- product
 }
 
 func main() {
@@ -37,8 +42,13 @@ func main() {
 	doc := soup.HTMLParse(resp)
 	results := doc.Find("div", "id", "mainResults").FindAll("li", "class", "s-result-item")
 
+	pch := make(chan Product)
 	for _, result := range results {
-		parseProduct(result)
+		go parseProduct(result, pch)
+	}
+
+	for range results {
+		json.NewEncoder(os.Stdout).Encode(<-pch)
 	}
 
 	fmt.Printf("{\"time\": \"%s\", \"count\": %d}\n", time.Since(now), len(results))

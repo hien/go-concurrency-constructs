@@ -1,6 +1,8 @@
 package main
 
-import "github.com/anaskhan96/soup"
+import (
+	"github.com/anaskhan96/soup"
+)
 
 // A Review represents a review on amazon
 type Review struct {
