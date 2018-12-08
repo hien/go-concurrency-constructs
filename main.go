@@ -32,9 +32,6 @@ func main() {
 
 	resp, err := soup.Get("https://www.amazon.in/TVs/b/ref=nav_shopall_sbc_tvelec_television?ie=UTF8&node=1389396031")
 
-	// fmt.Println("Main fetch time: ", time.Since(now))
-	// now = time.Now().UTC()
-
 	if err != nil {
 		os.Exit(1)
 	}
